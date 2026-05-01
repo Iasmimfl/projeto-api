@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOG API</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+
+<div class="top-container">
+    <h1>Consumo de DOG API</h1>
+</div>
+
+<div class="content">
+
+    <button class="btn" onclick="buscarDog()">Buscar Dog</button>
+
+    <div id="msg"></div>
+
+    <div id="resultado" class="result-box">
+        <img id="dogImage">
+
+        <table>
+            <tr>
+                <th>Raça</th>
+                <th>Sub-raça</th>
+            </tr>
+            <tr>
+                <td id="breed"></td>
+                <td id="subbreed"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<a class="galeria-btn" href="galeria.html">Ver Galeria</a>
+
+<footer>
+    Desenvolvido por Daniel Souza Crisóstomo & Iasmim Ferreira de Lima
+</footer>
+
+<script>
+async function buscarDog() {
+
+    const msg = document.getElementById('msg');
+    msg.innerText = "Carregando...";
+
+    try {
+        const res = await fetch('api.php?action=random');
+        const data = await res.json();
+
+        if (data.success) {
+            document.getElementById('dogImage').src = data.image;
+            document.getElementById('breed').innerText = data.breed;
+            document.getElementById('subbreed').innerText = data.subbreed;
+            msg.innerText = "";
+        } else {
+            msg.innerText = data.message;
+        }
+
+    } catch (e) {
+        msg.innerText = "Erro na conexão";
+    }
+}
+</script>
+
+</body>
+</html>

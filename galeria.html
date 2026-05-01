@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Galeria de Cachorros</title>
+<link rel="stylesheet" href="galeria.css">
+</head>
+
+<body>
+
+<div class="top-container">
+    <h1>Galeria de Cachorros</h1>
+</div>
+
+
+
+<div class="search">
+    <select id="breedSelect" onchange="buscarPorRaca()">
+        <option>Carregando raças...</option>
+    </select>
+</div>
+
+<div id="msg"></div>
+
+<div id="grid" class="grid"></div>
+
+<script>
+
+async function carregarRacas() {
+    try {
+        const res = await fetch('https://dog.ceo/api/breeds/list/all');
+        const data = await res.json();
+
+        const select = document.getElementById('breedSelect');
+        select.innerHTML = '<option value="">Selecione uma raça</option>';
+
+        for (let breed in data.message) {
+            let option = document.createElement('option');
+            option.value = breed;
+            option.textContent = breed;
+            select.appendChild(option);
+        }
+
+    } catch (e) {
+        document.getElementById('msg').innerText = "Erro ao carregar raças";
+    }
+}
+
+async function buscarPorRaca() {
+
+    const breed = document.getElementById('breedSelect').value;
+    const grid = document.getElementById('grid');
+    const msg = document.getElementById('msg');
+
+    if (!breed) return;
+
+    grid.innerHTML = '';
+    msg.innerText = "Carregando...";
+
+    try {
+
+        const res = await fetch(`api.php?action=breed&breed=${breed}`);
+        const data = await res.json();
+
+        if (!data.success) {
+            msg.innerText = data.message;
+            return;
+        }
+
+        data.images.forEach(img => {
+            const card = document.createElement('div');
+            card.className = "card";
+            card.innerHTML = `<img src="${img}">`;
+            grid.appendChild(card);
+        });
+
+        msg.innerText = "";
+
+    } catch (e) {
+        msg.innerText = "Erro na API";
+    }
+}
+
+carregarRacas();
+
+</script>
+
+<a href="index.html" class="btn-voltar">Voltar</a>
+</a>
+
+</body>
+</html>
