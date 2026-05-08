@@ -64,7 +64,6 @@ if ($action == 'breed') {
         erro("Raça não encontrada");
     }
 
-    // 🔥 CORREÇÃO PRINCIPAL: remove o limite de 9
     echo json_encode([
         'success' => true,
         'images' => $data['message']
