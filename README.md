@@ -13,7 +13,6 @@ Projeto desenvolvido para a disciplina Programação para Internet I, com o obje
 - Botão "Voltar"
 - Layout responsivo
 - Tratamento básico de erros
-- Tratamento básico de erros
 
 ## Tecnologias
 - HTML
@@ -25,10 +24,9 @@ Projeto desenvolvido para a disciplina Programação para Internet I, com o obje
 ## Estrutura
 - index.html (página principal)
 - galeria.html (galeria de imagens)
-- style-index.css (estilos principal)
-- style-galeria.css (estilos galeria)
+- style.css (estilos da página principal)
+- galeria.css (estilos galeria)
 - api.php (consumo da API)
-- 
 
 ## Autores
 Daniel Souza Crisóstomo  
